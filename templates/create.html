@@ -1,0 +1,20 @@
+<h1>Luo uusi aihe</h1>
+
+<form action="/add" method="post">
+
+<p>Aiheen nimi:<br>
+<input type="text" name="name"></p>
+
+<p>Kysymykset<br>
+<textarea name="questions" rows="10" cols="100">
+test
+</textarea></p>
+
+<input type="submit" value="Luo">
+
+<input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+
+</form>
+
+<p>
+<a href="/">Etusivulle</a>

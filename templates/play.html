@@ -1,0 +1,15 @@
+<h1>Visa</h1>
+
+<form action="/result" method="post">
+
+<p>Vastaa kysymykseen: <b>{{ question }}</b>:<br>
+<input type="text" name="answer"></p>
+
+<input type="hidden" name="deck_id" value="{{ topic_id }}">
+<input type="hidden" name="card_id" value="{{ card_id }}">
+
+<input type="submit" value="Vastaa">
+
+<input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+
+</form>

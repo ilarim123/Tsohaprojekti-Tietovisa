@@ -8,6 +8,8 @@ CREATE TABLE users (
 CREATE TABLE topics (
     id SERIAL PRIMARY KEY,
     name TEXT
+    desc TEXT
+    difficulty TEXT
 );
 
 CREATE TABLE questions (
