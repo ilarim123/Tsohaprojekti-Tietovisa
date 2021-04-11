@@ -1,3 +1,8 @@
+##### **Sovellus ei toimi vielä lainkaan, pahoittelen!**
+
+
+
+
 Tietovisapeli
 
 - Käyttäjä voi rekisteröidä tunnuksen ja kirjautua sisään
