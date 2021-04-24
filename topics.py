@@ -13,9 +13,10 @@ def get_topic_difficulty(topic_id):
     sql = "SELECT topics.difficulty FROM topics WHERE topics.id=:topic_id"
     return db.session.execute(sql, {"topic_id": topic_id}).fetchone()
 
-def create_topic(name):
+def create_topic(name, difficulty, question1, question2, question3, question4, question5, answer1, answer2, answer3, answer4, answer5):
     sql = "INSERT INTO topics (name, difficulty, question1, question2, question3, question4, question5, answer1, answer2, answer3, answer4, answer5) VALUES (:name, :difficulty, :question1, :question2, :question3, :question4, :question5, :answer1, :answer2, :answer3, :answer4, :answer5) RETURNING id"
     topic_id = db.session.execute(sql, {"name":name, "difficulty":difficulty, "question1":question1, "question2":question2, "question3":question3, "question4":question4, "question5":question5, "answer1":answer1, "answer2":answer2, "answer3":answer3, "answer4":answer4, "answer5":answer5}).fetchone()[0]
+    return topic_id
 
 def get_question1(topic_id):
     sql = "SELECT topics.question1 FROM topics WHERE topics.id=:topic_id"

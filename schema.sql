@@ -7,7 +7,7 @@ CREATE TABLE users (
 CREATE TABLE topics (
     id SERIAL PRIMARY KEY,
     name TEXT,
-    difficulty INTEGER,
+    difficulty TEXT,
     question1 TEXT,
     question2 TEXT,
     question3 TEXT,

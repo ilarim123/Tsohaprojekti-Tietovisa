@@ -53,13 +53,23 @@ def topic(id):
     name = topics.get_topic_name(id)
     desc = topics.get_topic_desc(id)
     difficulty = topics.get_topic_difficulty(id)
+    question1 = topics.get_question1(id)
+    question2 = topics.get_question2(id)
+    question3 = topics.get_question3(id)
+    question4 = topics.get_question4(id)
+    question5 = topics.get_question5(id)
+    answer1 = topics.get_answer1(id)
+    answer2 = topics.get_answer2(id)
+    answer3 = topics.get_answer3(id)
+    answer4 = topics.get_answer4(id)
+    answer5 = topics.get_answer5(id)
 
-    return render_template("topic.html", id=id, name=name, desc=desc, difficulty=difficulty)
+    return render_template("topic.html", id=id, name=name, desc=desc, difficulty=difficulty, question1=question1, question2=question2, question3=question3, question4=question4, question5=question5, answer1=answer1, answer2=answer2, answer3=answer3, answer4=answer4, answer5=answer5)
 
-@app.route("/create")
+@app.route("/create", methods=["get", "post"])
 def create():
     if request.method == "GET":
-        return render.template("add.html")
+        return render_template("create.html")
 
     if request.method == "POST":
         users.check_csrf()
@@ -68,15 +78,8 @@ def create():
 
         difficulty = request.form["difficulty"]
 
-        try:
-            integer = int(difficulty)
-        except:
-            return render.template("error.html", message="Vaikeusasteen tulee olla kokonaisluku väliltä 1-5")
-
-        if difficulty < 1:
-            return render.template("error.html", message="Vaikeusasteen tulee olla kokonaisluku väliltä 1-5")
-        elif difficulty > 5:
-            return render.template("error.html", message="Vaikeusasteen tulee olla kokonaisluku väliltä 1-5")
+        if difficulty != "1" and difficulty != "2" and difficulty != "3" and difficulty != "4" and difficulty != "5":
+            return render_template("error.html", message="Vaikeusasteen tulee olla kokonaisluku väliltä 1-5")
 
 
         question1 = request.form["question1"]
