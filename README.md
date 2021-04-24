@@ -11,6 +11,4 @@ Tietovisapeli
 - Käyttäjä voi nähdä tulostilastoa jossa on järjestyksessä eniten pisteitä keränneet käyttäjät
 - Käyttäjä voi nähdä tilastoa omista pelatuista peleistään
 - Käyttäjä voi antaa aiheista palautetta ja ehdottaa uusia aiheita ylläpitäjälle
-- Ylläpitäjä voi luoda uusia aiheita ja kysymyksiä
-- Ylläpitäjä voi kirjoittaa aiheisiin kuvauksen ja vaikeusasteen
-- Ylläpitäjä voi nähdä tilastoa eri aiheiden pelatuista peleistä sekä tietoa kaikista käyttäjistä
+- Käyttäjät voivat luoda uusia aiheita, joille määrittää kysymykset, vastaukset ja vaikeusasteen

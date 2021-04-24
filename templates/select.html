@@ -1,0 +1,8 @@
+Valitse aihe jota haluat pelata
+
+<ul>
+{% for topic in topics %}
+<li><a href="/topic/{{ topic.id }}">{{ topic.name }}</a>
+{% endfor %}
+</ul>
+

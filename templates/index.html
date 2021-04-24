@@ -1,16 +1,17 @@
 <title>Tietovisapeli</title>
 
+<h1>Tietovisapeli</h1>
+
 {% if session.user_id %}
-Olet kirjautunut käyttäjänä {{ session.user_name }}. <a href="/logout">Kirjaudu ulos</a>
+<a href="/select">Pelaa</a>
 <p>
-<ul>
-{% for topic in topics %}
-<li><a href="/topics/{{ topic.id }}">{{ topic.name }}</a>
-{% endfor %}
-</ul>
+Kirjaudu ulos <a href="/logout">tästä</a>
+<p>
 {% else %}
-Kirjaudu sisään <a href="/login">tästä</a>
+Et ole kirjautunut sisään
+Kirjaudu sisään pelataksesi <a href="/login">tästä</a>
 {% endif %}
+
 
 
 
