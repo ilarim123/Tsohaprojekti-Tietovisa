@@ -33,14 +33,14 @@ def register():
     if request.method == "POST":
         username = request.form["username"]
 
-    password0 = request.form["password0"]
-    if password0 == "":
-        return render_template("error.html", message="Syötä jokin salasana")
+        password0 = request.form["password0"]
+        if password0 == "":
+            return render_template("error.html", message="Syötä jokin salasana")
 
-    if users.register(username, password0):
-        return redirect("/")
-    else:
-        return render_template("error.html", message="Tapahtui virhe")
+        if users.register(username, password0):
+            return redirect("/")
+        else:
+            return render_template("error.html", message="Tapahtui virhe")
 
 
 @app.route("/select")
@@ -51,8 +51,14 @@ def select():
 @app.route("/topic/<int:id>")
 def topic(id):
     name = topics.get_topic_name(id)
-    desc = topics.get_topic_desc(id)
     difficulty = topics.get_topic_difficulty(id)
+
+    return render_template("topic.html", id=id, name=name, difficulty=difficulty)
+
+@app.route("/play/<int:id>")
+def play(id):
+    name = topics.get_topic_name(id)
+
     question1 = topics.get_question1(id)
     question2 = topics.get_question2(id)
     question3 = topics.get_question3(id)
@@ -64,7 +70,42 @@ def topic(id):
     answer4 = topics.get_answer4(id)
     answer5 = topics.get_answer5(id)
 
-    return render_template("topic.html", id=id, name=name, desc=desc, difficulty=difficulty, question1=question1, question2=question2, question3=question3, question4=question4, question5=question5, answer1=answer1, answer2=answer2, answer3=answer3, answer4=answer4, answer5=answer5)
+    return render_template("play.html", id=id, name=name, question1=question1, question2=question2, question3=question3, question4=question4, question5=question5, answer1=answer1, answer2=answer2, answer3=answer3, answer4=answer4, answer5=answer5)
+
+@app.route("/end/<int:id>", methods=["post"])
+def end(id):
+    topic_id = request.form["topic_id"]
+
+    useranswer1 = request.form["useranswer1"]
+    useranswer2 = request.form["useranswer2"]
+    useranswer3 = request.form["useranswer3"]
+    useranswer4 = request.form["useranswer4"]
+    useranswer5 = request.form["useranswer5"]
+
+    answer1 = topics.get_answer1(id)
+    answer2 = topics.get_answer2(id)
+    answer3 = topics.get_answer3(id)
+    answer4 = topics.get_answer4(id)
+    answer5 = topics.get_answer5(id)
+
+    score = 0
+
+    if useranswer1 == answer1:
+        score += 1
+
+    if useranswer2 == answer2:
+        score += 1
+
+    if useranswer3 == answer3:
+        score += 1
+
+    if useranswer4 == answer4:
+        score += 1
+
+    if useranswer5 == answer5:
+        score += 1
+
+    return render_template("end.html", id=id, topic_id=topic_id, score=score)
 
 @app.route("/create", methods=["get", "post"])
 def create():
@@ -72,8 +113,6 @@ def create():
         return render_template("create.html")
 
     if request.method == "POST":
-        users.check_csrf()
-
         name = request.form["name"]
 
         difficulty = request.form["difficulty"]
