@@ -2,6 +2,10 @@
 
 <p>Vaikeusaste: {{ difficulty }}<br>
 
-<p><a href="/play/{{ id }}">Pelaa tästä</a></p>
+<ol>
+{% for question in questions %}
+<li><a href="/play/{{ question.id }}">Kysymys</a>
+{% endfor %}
+</ol>
 
 

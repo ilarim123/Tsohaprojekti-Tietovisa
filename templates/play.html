@@ -1,42 +1,13 @@
-<h1>{{ name }}-visa</h1>
-
 <h3>Vastaa kysymyksiin isolla alkukirjaimella jotta vastaukset tunnistetaan oikeiksi<h3>
 
-<form action="/end" method="post">
+<form action="/end/{{ id }}" method="post">
 
-<p>Kysymys 1:<br>
-<p>{{ question1 }}<br>
+Kysymys: <br>{{ question }}
+Vastauksesi: <br><input type="text" name="useranswer">
 
-<p>Vastauksesi kysymykseen 1:<br>
-<input type="text" name="useranswer1"></p>
+<input type="hidden" name="question_id" value="{{ id }}">
+<input type="hidden" name="user_id" value="{{ user_id }}">
 
-<p>Kysymys 2:<br>
-<p>{{ question2 }}<br>
-
-<p>Vastauksesi kysymykseen 2:<br>
-<input type="text" name="useranswer2"></p>
-
-<p>Kysymys 3:<br>
-<p>{{ question3 }}<br>
-
-<p>Vastauksesi kysymykseen 3:<br>
-<input type="text" name="useranswer3"></p>
-
-<p>Kysymys 4:<br>
-<p>{{ question4 }}<br>
-
-<p>Vastauksesi kysymykseen 4:<br>
-<input type="text" name="useranswer4"></p>
-
-<p>Kysymys 5:<br>
-<p>{{ question5 }}<br>
-
-<p>Vastauksesi kysymykseen 5:<br>
-<input type="text" name="useranswer5"></p>
-
-
-<input type="hidden" name="topic_id" value="{{ topic_id }}">
-
-<input type="submit" value="Lukitse vastaukset">
+<input type="submit" value="Lukitse vastaus">
 
 </form>

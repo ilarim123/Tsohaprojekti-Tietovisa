@@ -7,56 +7,53 @@ def get_all_topics():
 
 def get_topic_name(topic_id):
     sql = "SELECT topics.name FROM topics WHERE topics.id=:topic_id"
-    return db.session.execute(sql, {"topic_id": topic_id}).fetchone()
+    return db.session.execute(sql, {"topic_id": topic_id}).fetchone()[0]
 
 def get_topic_difficulty(topic_id):
     sql = "SELECT topics.difficulty FROM topics WHERE topics.id=:topic_id"
-    return db.session.execute(sql, {"topic_id": topic_id}).fetchone()
+    return db.session.execute(sql, {"topic_id": topic_id}).fetchone()[0]
 
-def create_topic(name, difficulty, question1, question2, question3, question4, question5, answer1, answer2, answer3, answer4, answer5):
-    sql = "INSERT INTO topics (name, difficulty, question1, question2, question3, question4, question5, answer1, answer2, answer3, answer4, answer5) VALUES (:name, :difficulty, :question1, :question2, :question3, :question4, :question5, :answer1, :answer2, :answer3, :answer4, :answer5) RETURNING id"
-    topic_id = db.session.execute(sql, {"name":name, "difficulty":difficulty, "question1":question1, "question2":question2, "question3":question3, "question4":question4, "question5":question5, "answer1":answer1, "answer2":answer2, "answer3":answer3, "answer4":answer4, "answer5":answer5}).fetchone()[0]
+def get_topic_question_amount(topic_id):
+    sql = "SELECT COUNT(*) FROM questions WHERE topic_id = :topic_id"
+    return db.session.execute(sql, {"topic_id": topic_id}).fetchone()[0]
+
+def create_topic(name, difficulty):
+    sql = "INSERT INTO topics (name, difficulty) VALUES (:name, :difficulty) RETURNING id"
+    topic_id = db.session.execute(sql, {"name":name, "difficulty":difficulty}).fetchone()[0]
+    
+    db.session.commit()
     return topic_id
 
-def get_question1(topic_id):
-    sql = "SELECT topics.question1 FROM topics WHERE topics.id=:topic_id"
-    return db.session.execute(sql, {"topic_id": topic_id}).fetchone()
+def add_new_question(topic_id, question, answer):
+    sql = "INSERT INTO questions (topic_id, question, answer) VALUES (:topic_id, :question, :answer)"
+    db.session.execute(sql, {"topic_id":topic_id, "question":question, "answer":answer})
+    db.session.commit()
 
-def get_question2(topic_id):
-    sql = "SELECT topics.question2 FROM topics WHERE topics.id=:topic_id"
-    return db.session.execute(sql, {"topic_id": topic_id}).fetchone()
+def get_next_question(topic_id, qnumber):
+    sql = "SELECT id, question FROM questions WHERE topic_id=:topic_id LIMIT 1 OFFSET :qnumber"
+    return db.session.execute(sql, {"topic_id":topic_id, "qnumber":qnumber}).fetchone()
+    
+def get_all_questions(topic_id):
+    sql = "SELECT id, question FROM questions WHERE topic_id=:topic_id"
+    return db.session.execute(sql, {"topic_id":topic_id}).fetchall()
 
-def get_question3(topic_id):
-    sql = "SELECT topics.question3 FROM topics WHERE topics.id=:topic_id"
-    return db.session.execute(sql, {"topic_id": topic_id}).fetchone()
-
-def get_question4(topic_id):
-    sql = "SELECT topics.question4 FROM topics WHERE topics.id=:topic_id"
-    return db.session.execute(sql, {"topic_id": topic_id}).fetchone()
-
-def get_question5(topic_id):
-    sql = "SELECT topics.question5 FROM topics WHERE topics.id=:topic_id"
-    return db.session.execute(sql, {"topic_id": topic_id}).fetchone()
-
-def get_answer1(topic_id):
-    sql = "SELECT topics.answer1 FROM topics WHERE topics.id=:topic_id"
-    return db.session.execute(sql, {"topic_id": topic_id}).fetchone()
-
-def get_answer2(topic_id):
-    sql = "SELECT topics.answer2 FROM topics WHERE topics.id=:topic_id"
-    return db.session.execute(sql, {"topic_id": topic_id}).fetchone()
-
-def get_answer3(topic_id):
-    sql = "SELECT topics.answer3 FROM topics WHERE topics.id=:topic_id"
-    return db.session.execute(sql, {"topic_id": topic_id}).fetchone()
-
-def get_answer4(topic_id):
-    sql = "SELECT topics.answer4 FROM topics WHERE topics.id=:topic_id"
-    return db.session.execute(sql, {"topic_id": topic_id}).fetchone()
-
-def get_answer5(topic_id):
-    sql = "SELECT topics.answer5 FROM topics WHERE topics.id=:topic_id"
-    return db.session.execute(sql, {"topic_id": topic_id}).fetchone()
-
-
-
+def get_question_and_answer(question_id):
+    sql = "SELECT question, answer FROM questions WHERE id=:question_id"
+    return db.session.execute(sql, {"question_id":question_id}).fetchone()
+    
+def check_answer(question_id, useranswer, user_id):
+    sql = "SELECT answer FROM questions WHERE id=:question_id"
+    correct = db.session.execute(sql, {"question_id":question_id}).fetchone()[0]
+    
+    if useranswer == correct:
+        points = 1
+        right = True
+    else:
+        points = 0
+        right = False
+    
+    sql = "UPDATE scoreboard SET score=score+:points WHERE id=:user_id"
+    
+    db.session.execute(sql, {"user_id":user_id, "question_id":question_id, "points":points})
+    db.session.commit()
+    return right

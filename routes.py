@@ -38,6 +38,7 @@ def register():
             return render_template("error.html", message="Syötä jokin salasana")
 
         if users.register(username, password0):
+            users.add_user_to_scoreboard(username)
             return redirect("/")
         else:
             return render_template("error.html", message="Tapahtui virhe")
@@ -52,60 +53,32 @@ def select():
 def topic(id):
     name = topics.get_topic_name(id)
     difficulty = topics.get_topic_difficulty(id)
+    questions = topics.get_all_questions(id)
 
-    return render_template("topic.html", id=id, name=name, difficulty=difficulty)
+    return render_template("topic.html", id=id, name=name, difficulty=difficulty, questions=questions)
 
 @app.route("/play/<int:id>")
 def play(id):
-    name = topics.get_topic_name(id)
-
-    question1 = topics.get_question1(id)
-    question2 = topics.get_question2(id)
-    question3 = topics.get_question3(id)
-    question4 = topics.get_question4(id)
-    question5 = topics.get_question5(id)
-    answer1 = topics.get_answer1(id)
-    answer2 = topics.get_answer2(id)
-    answer3 = topics.get_answer3(id)
-    answer4 = topics.get_answer4(id)
-    answer5 = topics.get_answer5(id)
-
-    return render_template("play.html", id=id, name=name, question1=question1, question2=question2, question3=question3, question4=question4, question5=question5, answer1=answer1, answer2=answer2, answer3=answer3, answer4=answer4, answer5=answer5)
+    question = topics.get_question_and_answer(id)[0]
+    
+    user_id = users.user_id()
+    
+    return render_template("play.html", id=id, question=question, user_id=user_id)
 
 @app.route("/end/<int:id>", methods=["post"])
 def end(id):
-    topic_id = request.form["topic_id"]
+    question_id = request.form["question_id"]
+    useranswer = request.form["useranswer"]
+    user_id = request.form["user_id"]
 
-    useranswer1 = request.form["useranswer1"]
-    useranswer2 = request.form["useranswer2"]
-    useranswer3 = request.form["useranswer3"]
-    useranswer4 = request.form["useranswer4"]
-    useranswer5 = request.form["useranswer5"]
+    result = topics.check_answer(question_id, useranswer, user_id)
+    
+    if result == True:
+        text = "Vastauksesi on oikein! Sait yhden pisteen"
+    else:
+        text = "Vastauksesi on väärin! Yritä uudestaan"
 
-    answer1 = topics.get_answer1(id)
-    answer2 = topics.get_answer2(id)
-    answer3 = topics.get_answer3(id)
-    answer4 = topics.get_answer4(id)
-    answer5 = topics.get_answer5(id)
-
-    score = 0
-
-    if useranswer1 == answer1:
-        score += 1
-
-    if useranswer2 == answer2:
-        score += 1
-
-    if useranswer3 == answer3:
-        score += 1
-
-    if useranswer4 == answer4:
-        score += 1
-
-    if useranswer5 == answer5:
-        score += 1
-
-    return render_template("end.html", id=id, topic_id=topic_id, score=score)
+    return render_template("end.html", id=id, question_id=question_id, user_id=user_id, text=text)
 
 @app.route("/create", methods=["get", "post"])
 def create():
@@ -117,22 +90,24 @@ def create():
 
         difficulty = request.form["difficulty"]
 
-        if difficulty != "1" and difficulty != "2" and difficulty != "3" and difficulty != "4" and difficulty != "5":
-            return render_template("error.html", message="Vaikeusasteen tulee olla kokonaisluku väliltä 1-5")
+        topic_id = topics.create_topic(name, difficulty)
+        return redirect("/addquestions/"+str(topic_id))
 
-
-        question1 = request.form["question1"]
-        question2 = request.form["question2"]
-        question3 = request.form["question3"]
-        question4 = request.form["question4"]
-        question5 = request.form["question5"]
-        answer1 = request.form["answer1"]
-        answer2 = request.form["answer2"]
-        answer3 = request.form["answer3"]
-        answer4 = request.form["answer4"]
-        answer5 = request.form["answer5"]
-
-        topic_id = topics.create_topic(name, difficulty, question1, question2, question3, question4, question5, answer1, answer2, answer3, answer4, answer5)
-        return redirect("/topic/"+str(topic_id))
-
-
+@app.route("/addquestions/<int:id>", methods=["get", "post"])
+def addquestions(id):
+    if request.method == "GET":
+        return render_template("addquestions.html", id=id)
+    
+    if request.method == "POST":
+        question = request.form["question"]
+        
+        answer = request.form["answer"]
+        
+        topic_id = request.form["topic_id"]
+        
+        topics.add_new_question(topic_id, question, answer)
+        return redirect("/addquestions/"+str(topic_id))
+        
+@app.route("/scoreboard")
+def scoreboard():
+    return render_template("scoreboard.html", scoreboard=users.get_scoreboard())

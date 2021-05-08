@@ -30,7 +30,19 @@ def register(name, password):
         db.session.commit()
     except:
         return False
+    
     return login(name, password)
+
+def add_user_to_scoreboard(username):
+    score = 0
+    
+    sql = "INSERT INTO scoreboard (username, score) VALUES (:username, :score)"
+    db.session.execute(sql, {"username":username, "score":score})
+    db.session.commit()
+
+def get_scoreboard():
+    sql = "SELECT username, score FROM scoreboard ORDER BY score"
+    return db.session.execute(sql).fetchall()
 
 def user_id():
     return session.get("user_id", 0)

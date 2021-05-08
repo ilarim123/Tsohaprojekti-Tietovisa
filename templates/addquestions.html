@@ -1,0 +1,19 @@
+<h1>Lisää kysymyksiä luomallesi aiheelle</h1>
+
+<form action="/addquestions/{{ id }}" method="post">
+
+<p>Kirjoita jokainen vastaus isolla alkukirjaimella<br>
+
+
+<input type="hidden" name="topic_id" value="{{ id }}">
+
+Kysymys: <br><input type="text" name="question">
+Vastaus: <br><input type="text" name="answer">
+<input type="submit" value="Lisää kysymys">
+</form>
+
+<p>
+
+<a href="/">Olen lisännyt tarpeeksi kysymyksiä</a>
+
+
