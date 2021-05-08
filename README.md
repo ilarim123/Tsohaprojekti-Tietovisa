@@ -7,5 +7,6 @@
 - Käyttäjä voi nähdä tulostilastoa jossa on järjestyksessä eniten pisteitä keränneet käyttäjät
 - Käyttäjät voivat luoda uusia aiheita, joille määrittää kysymykset, vastaukset ja vaikeusasteen
 
-Sovellusta on [kokeiltavissa Herokussa](https://tsoha-tietovisa.herokuapp.com/)
+Sovellus on [kokeiltavissa Herokussa](https://tsoha-tietovisa.herokuapp.com/)
+</br>
 Huom! Herokussa olevassa versiossa ei valitettavasti toimi pisteiden kerääminen, tulostaulu näyttää siis kaikille käyttäjille nollaa.
