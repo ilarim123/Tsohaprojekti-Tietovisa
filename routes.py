@@ -67,6 +67,8 @@ def play(id):
 
 @app.route("/end/<int:id>", methods=["post"])
 def end(id):
+    users.check_csrf()
+
     question_id = request.form["question_id"]
     useranswer = request.form["useranswer"]
     user_id = request.form["user_id"]
@@ -86,6 +88,8 @@ def create():
         return render_template("create.html")
 
     if request.method == "POST":
+        users.check_csrf()
+
         name = request.form["name"]
 
         difficulty = request.form["difficulty"]
@@ -99,6 +103,8 @@ def addquestions(id):
         return render_template("addquestions.html", id=id)
     
     if request.method == "POST":
+        users.check_csrf()
+
         question = request.form["question"]
         
         answer = request.form["answer"]

@@ -41,7 +41,7 @@ def add_user_to_scoreboard(username):
     db.session.commit()
 
 def get_scoreboard():
-    sql = "SELECT username, score FROM scoreboard ORDER BY score"
+    sql = "SELECT username, score FROM scoreboard ORDER BY score DESC"
     return db.session.execute(sql).fetchall()
 
 def user_id():

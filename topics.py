@@ -28,10 +28,6 @@ def add_new_question(topic_id, question, answer):
     sql = "INSERT INTO questions (topic_id, question, answer) VALUES (:topic_id, :question, :answer)"
     db.session.execute(sql, {"topic_id":topic_id, "question":question, "answer":answer})
     db.session.commit()
-
-def get_next_question(topic_id, qnumber):
-    sql = "SELECT id, question FROM questions WHERE topic_id=:topic_id LIMIT 1 OFFSET :qnumber"
-    return db.session.execute(sql, {"topic_id":topic_id, "qnumber":qnumber}).fetchone()
     
 def get_all_questions(topic_id):
     sql = "SELECT id, question FROM questions WHERE topic_id=:topic_id"
