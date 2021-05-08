@@ -17,6 +17,7 @@ Kysymys: <br><input type="text" name="question"></br>
 Vastaus: <br><input type="text" name="answer"></br>
 <p>
 <input type="submit" value="Lisää kysymys"></br>
+<input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
 </form>
 
 <p>
