@@ -8,3 +8,4 @@
 - Käyttäjät voivat luoda uusia aiheita, joille määrittää kysymykset, vastaukset ja vaikeusasteen
 
 Sovellusta on [kokeiltavissa Herokussa](https://tsoha-tietovisa.herokuapp.com/)
+Huom! Herokussa olevassa versiossa ei valitettavasti toimi pisteiden kerääminen, tulostaulu näyttää siis kaikille käyttäjille nollaa.
