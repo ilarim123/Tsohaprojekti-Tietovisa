@@ -1,11 +1,24 @@
-<h1>{{ name }}</h1>
+{% extends "layout.html" %}
+{% block content %}
 
-<p>Vaikeusaste: {{ difficulty }}<br>
+<title>Aihe</title>
+
+<h1>{{ name }}-visa</h1>
+
+<p><h2>Vaikeusaste: {{ difficulty }}</h2><br>
+
+<p>
+<h3>Valitse kysymys listasta</h3></br>
+<p>
 
 <ol>
 {% for question in questions %}
 <li><a href="/play/{{ question.id }}">Kysymys</a>
 {% endfor %}
 </ol>
+</br>
 
+<p><a href="/select">Takaisin aihevalikkoon</a></br>
+<p>
 
+{% endblock %}

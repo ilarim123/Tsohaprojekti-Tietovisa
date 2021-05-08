@@ -1,19 +1,26 @@
+{% extends "layout.html" %}
+{% block content %}
+
 <title>Tietovisapeli</title>
 
-<h1>Tietovisapeli</h1>
+<h1>Tietovisapeli</h1></br>
 
 {% if session.user_id %}
-<a href="/select">Pelaa</a>
-<p></br>
-<a href="/create">Luo uusi tietovisa-aihe</a>
-Kirjaudu ulos <a href="/logout">tästä</a>
+<p>
+<a href="/select">Pelaa</a></br>
+<p>
+<a href="/create">Luo uusi tietovisa-aihe</a></br>
+<p>
+Kirjaudu ulos <a href="/logout">tästä</a></br>
 <p>
 {% else %}
-Et ole kirjautunut sisään
-Kirjaudu sisään pelataksesi <a href="/login">tästä</a>
+<p>
+Et ole kirjautunut sisään</br>
+<p>
+Kirjaudu sisään pelataksesi <a href="/login">tästä</a></br>
+<p>
 {% endif %}
+<p>
+<a href="/scoreboard">Katsele käyttäjien tuloksia</a></br>
 
-
-<a href="/scoreboard">Katsele käyttäjien tuloksia</a>
-
-
+{% endblock %}

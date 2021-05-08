@@ -1,10 +1,18 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<title>Tulokset</title>
+
 <h1>Tulostaulu</h1>
 
-
+<p>
 <ul>
 {% for user in scoreboard %}
-<li>Käyttäjä: {{ user.username }} Pisteet: {{ user.score }}
+<li>Käyttäjä: {{ user.username }} | Pisteet: {{ user.score }}
 {% endfor %}
 </ul>
+</br>
+<p>
 
 
+{% endblock %}

@@ -1,13 +1,24 @@
-<h3>Vastaa kysymyksiin isolla alkukirjaimella jotta vastaukset tunnistetaan oikeiksi<h3>
+{% extends "layout.html" %}
+{% block content %}
+
+<title>Kysymykseen vastaaminen</title>
+
+<h2>Vastaa kysymyksiin isolla alkukirjaimella jotta vastaukset tunnistetaan oikeiksi</h2>
 
 <form action="/end/{{ id }}" method="post">
-
-Kysymys: <br>{{ question }}
-Vastauksesi: <br><input type="text" name="useranswer">
-
+<p>
+<h3>Kysymys: {{ question }}</h3></br>
+<p>
+Vastauksesi: <br><input type="text" name="useranswer"></br>
+<p>
 <input type="hidden" name="question_id" value="{{ id }}">
 <input type="hidden" name="user_id" value="{{ user_id }}">
-
-<input type="submit" value="Lukitse vastaus">
+<p>
+<input type="submit" value="Lukitse vastaus"></br>
+<p>
+<p><a href="/select">Takaisin aihevalikkoon</a></br>
+<p>
 
 </form>
+
+{% endblock %}

@@ -1,13 +1,22 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<title>Kirjautuminen</title>
+
 <h1>Kirjautuminen</h1>
 
 <form action="/login" method="post">
-<p>Käyttäjänimi: <br><input type="text" name="username"><br>
-<p>Salasana: <br><input type="password" name="password"><br>
+<p>
+Käyttäjänimi: <br><input type="text" name="username"><br>
+<p>
+Salasana: <br><input type="password" name="password"><br>
+<p>
 <input type="submit" value="Kirjaudu sisään">
 </form>
 
-<p><a href="/register">Rekisteröityminen</a><br>
+<p>
+<a href="/register">Rekisteröityminen</a><br>
+<p>
 
-<p><a href="/">Etusivulle</a><br>
 
-
+{% endblock %}

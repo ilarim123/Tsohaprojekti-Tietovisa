@@ -1,8 +1,15 @@
-Valitse aihe jota haluat pelata
+{% extends "layout.html" %}
+{% block content %}
 
+<h1>Valitse aihe jota haluat pelata</h1>
+
+<p>
 <ul>
 {% for topic in topics %}
 <li><a href="/topic/{{ topic.id }}">{{ topic.name }}</a>
 {% endfor %}
 </ul>
+<p>
 
+
+{% endblock %}
