@@ -6,7 +6,3 @@
 - Käyttäjä voi pelata valitsemaansa tietovisaa vastaamalla kysymyksiin ja kerätä pisteitä
 - Käyttäjä voi nähdä tulostilastoa jossa on järjestyksessä eniten pisteitä keränneet käyttäjät
 - Käyttäjät voivat luoda uusia aiheita, joille määrittää kysymykset, vastaukset ja vaikeusasteen
-
-Sovellus on [kokeiltavissa Herokussa](https://tsoha-tietovisa.herokuapp.com/)
-</br>
-Huom! Herokussa olevassa versiossa ei valitettavasti toimi pisteiden kerääminen, tulostaulu näyttää siis kaikille käyttäjille nollaa.
